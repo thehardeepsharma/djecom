@@ -1,0 +1,9 @@
+.idea/
+*.pyc
+venv
+derby.log
+catmgr/*.pyc
+core/__pycache__/
+core/migrations/
+static/logs/
+media/

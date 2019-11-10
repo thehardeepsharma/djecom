@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    {% load static %}
+    <head>
+        <meta charset="utf-8" />
+        <title>Djecommerce {% block title %}{% endblock %}</title>
+
+        {% include "layout/head.html" %}
+
+        {% block extrastyle %}
+        {% endblock extrastyle %}
+    </head>
+    <!-- END HEAD -->
+
+    <body>
+        <div class="wrapper" id="wrapper">
+            {% include "layout/top_menu.html" %}
+        </div>
+
+        {% block content %}
+        {% endblock content %}
+
+
+        {% include "layout/footer.html" %}
+
+        {% include "layout/javascript.html" %}
+
+
+        {% block extrajs %}
+        {% endblock extrajs %}
+
+    </body>
+</html>
