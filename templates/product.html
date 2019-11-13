@@ -2,8 +2,7 @@
 
 {% load static %}
 
-{% block content %}
-
+{% block breadcrumb %}
 <!-- Start Bradcaump area -->
 <div class="ht__bradcaump__area bg-image--4">
     <div class="container">
@@ -22,6 +21,10 @@
     </div>
 </div>
 <!-- End Bradcaump area -->
+{% endblock breadcrumb %}
+
+{% block content %}
+
 <!-- Start main Content -->
 <div class="maincontent bg--white pt--80 pb--55">
     <div class="container">
@@ -65,12 +68,15 @@
                                     <span>Qty</span>
                                     <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
                                     <div class="addtocart__actions">
-                                        <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
+                                        <a href="{{item.get_add_to_cart_url}}" class="btn btn-primary" title="Add to Cart">Add to Cart</a>
                                     </div>
                                     <div class="product-addto-links clearfix">
                                         <a class="wishlist" href="#"></a>
                                         <a class="compare" href="#"></a>
                                     </div>
+                                </div>
+                                <div>
+                                    <a href="{{item.get_remove_from_cart_url}}" class="btn btn-danger text" title="Add to Cart">Remove from Cart</a>
                                 </div>
                                 <div class="product_meta">
                                     <span class="posted_in">Categories:
@@ -238,8 +244,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/1.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/2.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/1.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/2.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALLER</span>
                                     </div>
@@ -275,8 +281,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/3.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/4.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/3.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/4.jpg' %}" alt="product image"></a>
                                     <div class="hot__box color--2">
                                         <span class="hot-label">HOT</span>
                                     </div>
@@ -312,8 +318,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/7.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/8.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/7.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/8.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">HOT</span>
                                     </div>
@@ -349,8 +355,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/9.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/10.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/9.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/10.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">HOT</span>
                                     </div>
@@ -386,8 +392,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/11.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/2.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/11.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/2.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALER</span>
                                     </div>
@@ -423,8 +429,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/1.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/6.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/1.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/6.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALER</span>
                                     </div>
@@ -469,8 +475,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/1.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/2.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/1.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/2.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALLER</span>
                                     </div>
@@ -506,8 +512,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/3.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/4.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/3.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/4.jpg' %}" alt="product image"></a>
                                     <div class="hot__box color--2">
                                         <span class="hot-label">HOT</span>
                                     </div>
@@ -543,8 +549,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/7.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/8.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/7.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/8.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">HOT</span>
                                     </div>
@@ -580,8 +586,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/9.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/10.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/9.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/10.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">HOT</span>
                                     </div>
@@ -617,8 +623,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/11.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/2.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/11.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/2.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALER</span>
                                     </div>
@@ -654,8 +660,8 @@
                             <!-- Start Single Product -->
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
-                                    <a class="first__img" href="single-product.html"><img src="images/books/1.jpg" alt="product image"></a>
-                                    <a class="second__img animation1" href="single-product.html"><img src="images/books/6.jpg" alt="product image"></a>
+                                    <a class="first__img" href="single-product.html"><img src="{% static 'assets/images/books/1.jpg' %}" alt="product image"></a>
+                                    <a class="second__img animation1" href="single-product.html"><img src="{% static 'assets/images/books/6.jpg' %}" alt="product image"></a>
                                     <div class="hot__box">
                                         <span class="hot-label">BEST SALER</span>
                                     </div>
@@ -697,22 +703,9 @@
                     <aside class="wedget__categories poroduct--cat">
                         <h3 class="wedget__title">Product Categories</h3>
                         <ul>
-                            <li><a href="#">Biography <span>(3)</span></a></li>
-                            <li><a href="#">Business <span>(4)</span></a></li>
-                            <li><a href="#">Cookbooks <span>(6)</span></a></li>
-                            <li><a href="#">Health & Fitness <span>(7)</span></a></li>
-                            <li><a href="#">History <span>(8)</span></a></li>
-                            <li><a href="#">Mystery <span>(9)</span></a></li>
-                            <li><a href="#">Inspiration <span>(13)</span></a></li>
-                            <li><a href="#">Romance <span>(20)</span></a></li>
-                            <li><a href="#">Fiction/Fantasy <span>(22)</span></a></li>
-                            <li><a href="#">Self-Improvement <span>(13)</span></a></li>
-                            <li><a href="#">Humor Books <span>(17)</span></a></li>
-                            <li><a href="#">Harry Potter <span>(20)</span></a></li>
-                            <li><a href="#">Land of Stories <span>(34)</span></a></li>
-                            <li><a href="#">Kids' Music <span>(60)</span></a></li>
-                            <li><a href="#">Toys & Games <span>(3)</span></a></li>
-                            <li><a href="#">hoodies <span>(3)</span></a></li>
+                            {% for category in categories %}
+                                <li><a href="#">{{category}}</a></li>
+                            {% endfor %}
                         </ul>
                     </aside>
                     <aside class="wedget__categories pro--range">
@@ -762,7 +755,7 @@
                         </ul>
                     </aside>
                     <aside class="wedget__categories sidebar--banner">
-                        <img src="images/others/banner_left.jpg" alt="banner images">
+                        <img src="{% static 'assets/images/others/banner_left.jpg' %}" alt="banner images">
                         <div class="text">
                             <h2>new products</h2>
                             <h6>save up to <br> <strong>40%</strong>off</h6>
