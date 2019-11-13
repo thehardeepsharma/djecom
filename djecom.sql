@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 12, 2019 at 10:14 PM
--- Server version: 5.7.27-0ubuntu0.19.04.1
--- PHP Version: 7.2.24-0ubuntu0.19.04.1
+-- Generation Time: Nov 13, 2019 at 10:36 AM
+-- Server version: 5.7.27-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-1+ubuntu18.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -137,18 +137,26 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (46, 'Can change social application token', 12, 'change_socialtoken'),
 (47, 'Can delete social application token', 12, 'delete_socialtoken'),
 (48, 'Can view social application token', 12, 'view_socialtoken'),
-(49, 'Can add item', 13, 'add_item'),
-(50, 'Can change item', 13, 'change_item'),
-(51, 'Can delete item', 13, 'delete_item'),
-(52, 'Can view item', 13, 'view_item'),
-(53, 'Can add order', 14, 'add_order'),
-(54, 'Can change order', 14, 'change_order'),
-(55, 'Can delete order', 14, 'delete_order'),
-(56, 'Can view order', 14, 'view_order'),
+(49, 'Can add category', 13, 'add_category'),
+(50, 'Can change category', 13, 'change_category'),
+(51, 'Can delete category', 13, 'delete_category'),
+(52, 'Can view category', 13, 'view_category'),
+(53, 'Can add item', 14, 'add_item'),
+(54, 'Can change item', 14, 'change_item'),
+(55, 'Can delete item', 14, 'delete_item'),
+(56, 'Can view item', 14, 'view_item'),
 (57, 'Can add order items', 15, 'add_orderitems'),
 (58, 'Can change order items', 15, 'change_orderitems'),
 (59, 'Can delete order items', 15, 'delete_orderitems'),
-(60, 'Can view order items', 15, 'view_orderitems');
+(60, 'Can view order items', 15, 'view_orderitems'),
+(61, 'Can add order', 16, 'add_order'),
+(62, 'Can change order', 16, 'change_order'),
+(63, 'Can delete order', 16, 'delete_order'),
+(64, 'Can view order', 16, 'view_order'),
+(65, 'Can add product', 17, 'add_product'),
+(66, 'Can change product', 17, 'change_product'),
+(67, 'Can delete product', 17, 'delete_product'),
+(68, 'Can view product', 17, 'view_product');
 
 -- --------------------------------------------------------
 
@@ -175,7 +183,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$150000$ybYwoQYDsDpH$kM9e5i6HTyfFHCp1O9+56yr939OmbVF1vpx1dF/oceg=', '2019-11-10 13:15:30.529978', 1, 'admin', '', '', 'demo@demo.com', 1, 1, '2019-11-09 10:35:18.260935');
+(1, 'pbkdf2_sha256$150000$CR9OPbMNQqqz$AN4rXIm7en+2wTiZVS7gL0ALPloFc+EGeHb0uScuXwc=', '2019-11-13 04:01:32.016316', 1, 'admin', '', '', 'admin@in.com', 1, 1, '2019-11-13 04:00:20.246341');
 
 -- --------------------------------------------------------
 
@@ -204,6 +212,36 @@ CREATE TABLE `auth_user_user_permissions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `core_category`
+--
+
+CREATE TABLE `core_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `slug` varchar(50) NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `core_category`
+--
+
+INSERT INTO `core_category` (`id`, `name`, `slug`, `created`, `parent_id`, `user_id`) VALUES
+(1, 'Drum Handling', 'DH001', '2019-11-13 04:08:43.363984', NULL, 1),
+(2, 'Drum Carts', 'DC001', '2019-11-13 04:09:13.246913', 1, 1),
+(3, 'Carts', 'CA001', '2019-11-13 04:11:00.432137', NULL, 1),
+(4, 'Durm Covers', 'HC002', '2019-11-13 04:11:42.049793', 1, 1),
+(5, 'Bin', 'BIN01', '2019-11-13 04:12:49.246247', NULL, 1),
+(6, 'Mobile Carts', 'MBIN02', '2019-11-13 04:13:09.259019', 5, 1),
+(7, 'Bulk Tub Carts', 'BTC03', '2019-11-13 04:14:18.917875', 6, 1),
+(8, 'Dump Hoppers', 'DHP001', '2019-11-13 04:14:41.158789', NULL, 1),
+(9, 'Portable Hoppers', 'PH002', '2019-11-13 04:15:03.771935', 8, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `core_item`
 --
 
@@ -211,27 +249,28 @@ CREATE TABLE `core_item` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `price` double NOT NULL,
-  `category` varchar(2) NOT NULL,
+  `discount_price` double NOT NULL,
   `label` varchar(1) NOT NULL,
   `slug` varchar(50) NOT NULL,
   `description` longtext,
-  `discount_price` double NOT NULL
+  `product_id` int(11) DEFAULT NULL,
+  `created` datetime(6) NOT NULL,
+  `item_image` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `core_item`
 --
 
-INSERT INTO `core_item` (`id`, `title`, `price`, `category`, `label`, `slug`, `description`, `discount_price`) VALUES
-(1, 'High Rich Container Dumpers', 186, 'BD', 'P', 'HRCD', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 175),
-(2, 'Container Dumpers', 169, 'BD', 'P', 'CD001', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 150),
-(3, 'Basket Box Dumpers', 210, 'BD', 'P', 'BBD1', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 200),
-(4, '12 Ga. Storage Cabinet', 420, 'CA', 'P', '12GSC', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 410),
-(5, 'All Still Utility Cabinet', 150, 'CA', 'P', 'ASUC', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 145),
-(6, 'Countertop Cabinet', 543, 'CA', 'P', 'CC002', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 520),
-(7, 'Push Bridge Crane Kit', 350, 'CR', 'P', 'PBCK', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 340),
-(8, 'Electric Powered Floor Cranes', 753, 'CR', 'P', 'BPFC', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 740),
-(9, 'Lifter Jibs', 590, 'CR', 'S', 'LJ001', 'Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.', 560);
+INSERT INTO `core_item` (`id`, `title`, `price`, `discount_price`, `label`, `slug`, `description`, `product_id`, `created`, `item_image`) VALUES
+(1, 'H13CU-L-GY', 203.18, 182.86, 'P', 'H13CU-L-GY', 'Larger capacity and molded body make these trucks lightweight and economical. Molded wheel wells with inboard, high-quality wheels allow multiple units to nest for freight savings. Protects walls and doorways from impact damage. Optional hinged lids available for all 6 sizes, see Related Itemstab. Available in Gray, Blue, White, Red, Green, Yellow, Black or Orange body colors. 3.0 cu. yd. models in Gray only. FOB Shipping Point.', 1, '2019-11-13 04:11:42.049793', 'H13CU-HD-GY_1k63aE3.jpg'),
+(2, 'H13CU-HD-GY', 467.77, 420.99, 'P', 'H13CU-HD-GY', 'Larger capacity and molded body make these trucks lightweight and economical. Molded wheel wells with inboard, high-quality wheels allow multiple units to nest for freight savings. Protects walls and doorways from impact damage. Optional hinged lids available for all 6 sizes, see Related Itemstab. Available in Gray, Blue, White, Red, Green, Yellow, Black or Orange body colors. 3.0 cu. yd. models in Gray only. FOB Shipping Point.', 1, '2019-11-13 04:11:42.049793', 'H13CU-HD-GY.jpg'),
+(3, 'H26750', 129.54, 116.59, 'S', 'H26750', 'Self-closing units feature fusible link in lid that melts at 165°F snapping lid closed to protect contents from external fire or snuff out fire that might start inside. Manual drum cover with gasket and vent for 55 gal. drums available. Attaches with screwdriver and wrench. Durable steel with tough powder coat paint finish. FOB Shipping Point.', 2, '2019-11-13 04:51:48.144090', 'H26753_ma5cjS9.jpg'),
+(4, 'H26753', 336.21, 302.59, 'P', 'H26753', 'Self-closing units feature fusible link in lid that melts at 165°F snapping lid closed to protect contents from external fire or snuff out fire that might start inside. Manual drum cover with gasket and vent for 55 gal. drums available. Attaches with screwdriver and wrench. Durable steel with tough powder coat paint finish. FOB Shipping Point.', 2, '2019-11-13 04:52:30.584857', 'H26753.jpg'),
+(5, 'H20120-1', 1600, 1440, 'P', 'H20120-1', 'Mix contents of a sealed drum. Sealed drum mixing eliminates worker exposure and reduces clean-up. Motor is also available in 3 phase versions.\r\nCompact portable industrial drum mixer and drain stand rolls a closed drum on its side to agitate the contents. Utilize important ingredients that would otherwise be in unmixed sediment. Built-in retractable tipping lever to assist loading. Also use as drain stand to dispense from drum. AC Motor is 1/2 HP 60 Hz. Capacity 500 lbs. liquid load and up to 400 lbs. dry load. FOB Shipping Point.', 3, '2019-11-13 04:54:12.873559', 'H20120-E1_YHjNOxw.jpg'),
+(6, 'H20120-E1', 1860, 1674, 'S', 'H20120-E1', 'Mix contents of a sealed drum. Sealed drum mixing eliminates worker exposure and reduces clean-up. Motor is also available in 3 phase versions.\r\nCompact portable industrial drum mixer and drain stand rolls a closed drum on its side to agitate the contents. Utilize important ingredients that would otherwise be in unmixed sediment. Built-in retractable tipping lever to assist loading. Also use as drain stand to dispense from drum. AC Motor is 1/2 HP 60 Hz. Capacity 500 lbs. liquid load and up to 400 lbs. dry load. FOB Shipping Point.\r\n\r\nBenefits of mixing in closed shipping drums....\r\nRemix settled ingredients.\r\nEliminate transfer, clean-up and special vessels.\r\nNo conatainer to purge between batches.\r\nNothing to insert into drum mix.', 3, '2019-11-13 04:54:45.609643', 'H20120-E1.jpg'),
+(7, 'NIS2577', 568.51, 511.66, 'P', 'NIS2577', 'NIS Self Dumping Hoppers are perfectly balanced to roll forward when loaded, dump completely and automatically return to upright, locked position ready for reloading. Continuous welding helps to prevent leaking or dripping of wet materials from the hoppers. Formed smooth edge around top and pouring lip for safety and strength. Extended sides prevent side-wise scattering of material. The stacking feature (standard on 1/2 through 1 cubic yard models) on some of our hoppers permits stacking of empty hoppers. Our self dumping steel hoppers also have a strong, easy-to-operate latching mechanism.\r\n\r\nStainless Steel and Quantity Discounts Available.', 3, '2019-11-13 04:56:36.693874', 'NIS10077_zlGXFOi.jpg'),
+(8, 'NIS10077', 849.29, 764.36, 'S', 'NIS10077', 'NIS Self Dumping Hoppers are perfectly balanced to roll forward when loaded, dump completely and automatically return to upright, locked position ready for reloading. Continuous welding helps to prevent leaking or dripping of wet materials from the hoppers. Formed smooth edge around top and pouring lip for safety and strength. Extended sides prevent side-wise scattering of material. The stacking feature (standard on 1/2 through 1 cubic yard models) on some of our hoppers permits stacking of empty hoppers. Our self dumping steel hoppers also have a strong, easy-to-operate latching mechanism.\r\n\r\nStainless Steel and Quantity Discounts Available.', 3, '2019-11-13 04:57:21.875187', 'NIS10077.jpg');
 
 -- --------------------------------------------------------
 
@@ -250,13 +289,13 @@ CREATE TABLE `core_order` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `core_orderitems`
+-- Table structure for table `core_order_item`
 --
 
-CREATE TABLE `core_orderitems` (
+CREATE TABLE `core_order_item` (
   `id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -270,6 +309,30 @@ CREATE TABLE `core_order_items` (
   `order_id` int(11) NOT NULL,
   `orderitems_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `core_product`
+--
+
+CREATE TABLE `core_product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `core_product`
+--
+
+INSERT INTO `core_product` (`id`, `name`, `code`, `created`, `category_id`, `user_id`) VALUES
+(1, 'TUBS AND LIDS', 'TAL', '2019-11-13 04:30:22.708197', 7, 1),
+(2, 'DRUM COVERS', 'DC002', '2019-11-13 04:50:45.421936', 4, 1),
+(3, 'Portable Drum Rotator', 'PDR01', '2019-11-13 04:53:37.144634', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -293,18 +356,39 @@ CREATE TABLE `django_admin_log` (
 --
 
 INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`, `action_flag`, `change_message`, `content_type_id`, `user_id`) VALUES
-(1, '2019-11-09 13:56:02.915789', '1', 'Samsing', 1, '[{\"added\": {}}]', 13, 1),
-(2, '2019-11-09 13:56:14.161639', '2', 'Nokia', 1, '[{\"added\": {}}]', 13, 1),
-(3, '2019-11-10 13:17:38.638788', '2', 'Container Dumpers', 2, '[{\"changed\": {\"fields\": [\"title\"]}}]', 13, 1),
-(4, '2019-11-10 13:17:54.890217', '1', 'High Rich Container Dumpers', 2, '[{\"changed\": {\"fields\": [\"title\"]}}]', 13, 1),
-(5, '2019-11-10 13:18:27.326456', '3', 'Basket Box Dumpers', 1, '[{\"added\": {}}]', 13, 1),
-(6, '2019-11-10 13:19:05.858699', '4', '12 Ga. Storage Cabinet', 1, '[{\"added\": {}}]', 13, 1),
-(7, '2019-11-10 13:19:31.459402', '5', 'All Still Utility Cabinet', 1, '[{\"added\": {}}]', 13, 1),
-(8, '2019-11-10 13:20:02.866953', '6', 'Countertop Cabinet', 1, '[{\"added\": {}}]', 13, 1),
-(9, '2019-11-10 13:20:48.317953', '7', 'Push Bridge Crane Kit', 1, '[{\"added\": {}}]', 13, 1),
-(10, '2019-11-10 13:21:24.875424', '8', 'Electric Power Floor Cranes', 1, '[{\"added\": {}}]', 13, 1),
-(11, '2019-11-10 13:21:42.434602', '8', 'Electric Powered Floor Cranes', 2, '[{\"changed\": {\"fields\": [\"title\"]}}]', 13, 1),
-(12, '2019-11-10 13:22:59.612935', '9', 'Lifter Jibs', 1, '[{\"added\": {}}]', 13, 1);
+(1, '2019-11-13 04:08:07.529843', '3', 'Drum Handling', 1, '[{\"added\": {}}]', 13, 1),
+(2, '2019-11-13 04:08:43.364694', '1', 'Drum Handling', 1, '[{\"added\": {}}]', 13, 1),
+(3, '2019-11-13 04:09:13.247443', '2', 'Drum Carts', 1, '[{\"added\": {}}]', 13, 1),
+(4, '2019-11-13 04:11:00.432828', '3', 'Carts', 1, '[{\"added\": {}}]', 13, 1),
+(5, '2019-11-13 04:11:42.050728', '4', 'HEAVY DUTY CART', 1, '[{\"added\": {}}]', 13, 1),
+(6, '2019-11-13 04:12:49.246750', '5', 'Bin', 1, '[{\"added\": {}}]', 13, 1),
+(7, '2019-11-13 04:13:09.259703', '6', 'Mobile Carts', 1, '[{\"added\": {}}]', 13, 1),
+(8, '2019-11-13 04:14:18.918619', '7', 'TUBS AND LIDS', 1, '[{\"added\": {}}]', 13, 1),
+(9, '2019-11-13 04:14:41.159695', '8', 'Hoppers', 1, '[{\"added\": {}}]', 13, 1),
+(10, '2019-11-13 04:15:03.772714', '9', 'Portable Hoppers', 1, '[{\"added\": {}}]', 13, 1),
+(11, '2019-11-13 04:15:54.507482', '7', 'BULK TUB CARTS', 2, '[{\"changed\": {\"fields\": [\"name\", \"slug\"]}}]', 13, 1),
+(12, '2019-11-13 04:30:22.708942', '1', 'TUBS AND LIDS', 1, '[{\"added\": {}}]', 17, 1),
+(13, '2019-11-13 04:31:25.585674', '1', 'H13CU-L-GY', 1, '[{\"added\": {}}]', 14, 1),
+(14, '2019-11-13 04:32:22.816226', '2', 'H13CU-HD-GY', 1, '[{\"added\": {}}]', 14, 1),
+(15, '2019-11-13 04:42:09.787655', '8', 'Dump Hoppers', 2, '[{\"changed\": {\"fields\": [\"name\", \"slug\"]}}]', 13, 1),
+(16, '2019-11-13 04:43:32.554544', '4', 'Durm Covers', 2, '[{\"changed\": {\"fields\": [\"name\", \"slug\", \"parent\"]}}]', 13, 1),
+(17, '2019-11-13 04:43:49.664004', '7', 'Bulk Tub Carts', 2, '[{\"changed\": {\"fields\": [\"name\"]}}]', 13, 1),
+(18, '2019-11-13 04:50:45.422932', '2', 'DRUM COVERS', 1, '[{\"added\": {}}]', 17, 1),
+(19, '2019-11-13 04:51:48.144903', '3', 'H26750', 1, '[{\"added\": {}}]', 14, 1),
+(20, '2019-11-13 04:52:30.585496', '4', 'H26753', 1, '[{\"added\": {}}]', 14, 1),
+(21, '2019-11-13 04:53:37.145427', '3', 'Portable Drum Rotator', 1, '[{\"added\": {}}]', 17, 1),
+(22, '2019-11-13 04:54:12.874088', '5', 'H20120-1', 1, '[{\"added\": {}}]', 14, 1),
+(23, '2019-11-13 04:54:45.610575', '6', 'H20120-E1', 1, '[{\"added\": {}}]', 14, 1),
+(24, '2019-11-13 04:56:36.694653', '7', 'NIS2577', 1, '[{\"added\": {}}]', 14, 1),
+(25, '2019-11-13 04:57:21.875725', '8', 'NIS10077', 1, '[{\"added\": {}}]', 14, 1),
+(26, '2019-11-13 05:01:21.577471', '8', 'NIS10077', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(27, '2019-11-13 05:01:42.326568', '7', 'NIS2577', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(28, '2019-11-13 05:02:10.907885', '6', 'H20120-E1', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(29, '2019-11-13 05:02:28.554393', '5', 'H20120-1', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(30, '2019-11-13 05:02:55.398436', '4', 'H26753', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(31, '2019-11-13 05:03:25.018357', '3', 'H26750', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(32, '2019-11-13 05:04:04.062767', '2', 'H13CU-HD-GY', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(33, '2019-11-13 05:04:23.484595', '1', 'H13CU-L-GY', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1);
 
 -- --------------------------------------------------------
 
@@ -330,9 +414,11 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
-(13, 'core', 'item'),
-(14, 'core', 'order'),
+(13, 'core', 'category'),
+(14, 'core', 'item'),
+(16, 'core', 'order'),
 (15, 'core', 'orderitems'),
+(17, 'core', 'product'),
 (6, 'sessions', 'session'),
 (7, 'sites', 'site'),
 (10, 'socialaccount', 'socialaccount'),
@@ -357,37 +443,35 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2019-11-09 10:34:39.760940'),
-(2, 'auth', '0001_initial', '2019-11-09 10:34:39.946497'),
-(3, 'admin', '0001_initial', '2019-11-09 10:34:40.319232'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2019-11-09 10:34:40.422334'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2019-11-09 10:34:40.429795'),
-(6, 'contenttypes', '0002_remove_content_type_name', '2019-11-09 10:34:40.477395'),
-(7, 'auth', '0002_alter_permission_name_max_length', '2019-11-09 10:34:40.503413'),
-(8, 'auth', '0003_alter_user_email_max_length', '2019-11-09 10:34:40.529967'),
-(9, 'auth', '0004_alter_user_username_opts', '2019-11-09 10:34:40.536497'),
-(10, 'auth', '0005_alter_user_last_login_null', '2019-11-09 10:34:40.575992'),
-(11, 'auth', '0006_require_contenttypes_0002', '2019-11-09 10:34:40.578877'),
-(12, 'auth', '0007_alter_validators_add_error_messages', '2019-11-09 10:34:40.590991'),
-(13, 'auth', '0008_alter_user_username_max_length', '2019-11-09 10:34:40.618090'),
-(14, 'auth', '0009_alter_user_last_name_max_length', '2019-11-09 10:34:40.659660'),
-(15, 'auth', '0010_alter_group_name_max_length', '2019-11-09 10:34:40.701110'),
-(16, 'auth', '0011_update_proxy_permissions', '2019-11-09 10:34:40.710795'),
-(17, 'sessions', '0001_initial', '2019-11-09 10:34:40.737036'),
-(18, 'account', '0001_initial', '2019-11-09 10:43:35.411870'),
-(19, 'account', '0002_email_max_length', '2019-11-09 10:43:35.500870'),
-(20, 'sites', '0001_initial', '2019-11-09 10:43:35.530761'),
-(21, 'sites', '0002_alter_domain_unique', '2019-11-09 10:43:35.552587'),
-(22, 'socialaccount', '0001_initial', '2019-11-09 10:43:35.698515'),
-(23, 'socialaccount', '0002_token_max_lengths', '2019-11-09 10:43:37.115994'),
-(24, 'socialaccount', '0003_extra_data_default_dict', '2019-11-09 10:43:37.126399'),
-(25, 'core', '0001_initial', '2019-11-09 13:36:06.107813'),
-(26, 'core', '0002_auto_20191110_1259', '2019-11-10 12:59:53.850531'),
-(27, 'core', '0003_item_slug', '2019-11-12 16:01:38.781714'),
-(28, 'core', '0004_auto_20191112_1616', '2019-11-12 16:16:30.491532'),
-(29, 'core', '0005_auto_20191112_1622', '2019-11-12 16:22:30.573256'),
-(30, 'core', '0006_item_quantity', '2019-11-12 16:28:22.254593'),
-(31, 'core', '0007_auto_20191112_1636', '2019-11-12 16:36:46.333041');
+(1, 'contenttypes', '0001_initial', '2019-11-13 03:59:57.192352'),
+(2, 'auth', '0001_initial', '2019-11-13 03:59:57.345233'),
+(3, 'account', '0001_initial', '2019-11-13 03:59:57.800105'),
+(4, 'account', '0002_email_max_length', '2019-11-13 03:59:57.945651'),
+(5, 'admin', '0001_initial', '2019-11-13 03:59:57.984523'),
+(6, 'admin', '0002_logentry_remove_auto_add', '2019-11-13 03:59:58.085329'),
+(7, 'admin', '0003_logentry_add_action_flag_choices', '2019-11-13 03:59:58.099816'),
+(8, 'contenttypes', '0002_remove_content_type_name', '2019-11-13 03:59:58.181961'),
+(9, 'auth', '0002_alter_permission_name_max_length', '2019-11-13 03:59:58.224980'),
+(10, 'auth', '0003_alter_user_email_max_length', '2019-11-13 03:59:58.273384'),
+(11, 'auth', '0004_alter_user_username_opts', '2019-11-13 03:59:58.285891'),
+(12, 'auth', '0005_alter_user_last_login_null', '2019-11-13 03:59:58.329611'),
+(13, 'auth', '0006_require_contenttypes_0002', '2019-11-13 03:59:58.332874'),
+(14, 'auth', '0007_alter_validators_add_error_messages', '2019-11-13 03:59:58.344535'),
+(15, 'auth', '0008_alter_user_username_max_length', '2019-11-13 03:59:58.396525'),
+(16, 'auth', '0009_alter_user_last_name_max_length', '2019-11-13 03:59:58.441496'),
+(17, 'auth', '0010_alter_group_name_max_length', '2019-11-13 03:59:58.486044'),
+(18, 'auth', '0011_update_proxy_permissions', '2019-11-13 03:59:58.497091'),
+(19, 'core', '0001_initial', '2019-11-13 03:59:58.611809'),
+(20, 'sessions', '0001_initial', '2019-11-13 03:59:58.893906'),
+(21, 'sites', '0001_initial', '2019-11-13 03:59:58.929608'),
+(22, 'sites', '0002_alter_domain_unique', '2019-11-13 03:59:58.948617'),
+(23, 'socialaccount', '0001_initial', '2019-11-13 03:59:59.116223'),
+(24, 'socialaccount', '0002_token_max_lengths', '2019-11-13 03:59:59.365606'),
+(25, 'socialaccount', '0003_extra_data_default_dict', '2019-11-13 03:59:59.382665'),
+(26, 'core', '0002_category_user', '2019-11-13 04:07:02.530432'),
+(27, 'core', '0003_auto_20191113_0429', '2019-11-13 04:29:09.537288'),
+(28, 'core', '0004_item_created', '2019-11-13 04:48:35.631288'),
+(29, 'core', '0005_item_item_image', '2019-11-13 04:58:58.969683');
 
 -- --------------------------------------------------------
 
@@ -406,8 +490,7 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('49az56m57di09smv4n4k51o2eyv7dv8r', 'ZGY2YTlhNTVkOWY1NTExNjQ0ZDdhNjZmNTJlOGUyZTk2MDFkZDI4YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYjYzZWQ4ZTMyZTc3YmFiZGMzYzYyODA2NzlmYWJmZDM3YzMyM2FiIn0=', '2019-11-24 13:15:30.533487'),
-('zuuguh6p8vf3vrkses1epig9i1pda526', 'MGVmN2I0ZjAyODU2YTMyN2JjYjg3MTE4YTc3YWUzNmU0MmJjZDEzYzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhYjYzZWQ4ZTMyZTc3YmFiZGMzYzYyODA2NzlmYWJmZDM3YzMyM2FiIiwiX3Nlc3Npb25fZXhwaXJ5IjowfQ==', '2019-11-23 13:20:54.401372');
+('f5twvgp28uzas9uhi366u5oayuxmf00v', 'ZWE4OTZmMDI0YzNmNzI2YzUxMzgwNmRlNzBlNzRhZTI3ZDM1Y2I3OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNzM1YjUxMjBlZjk5OWRlZGNmMWMzMWU1ZmM5ODM4MmM3NTFjMGI5In0=', '2019-11-27 04:01:32.020060');
 
 -- --------------------------------------------------------
 
@@ -552,11 +635,22 @@ ALTER TABLE `auth_user_user_permissions`
   ADD KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`);
 
 --
+-- Indexes for table `core_category`
+--
+ALTER TABLE `core_category`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `core_category_slug_parent_id_25657443_uniq` (`slug`,`parent_id`),
+  ADD KEY `core_category_parent_id_f82a0951_fk_core_category_id` (`parent_id`),
+  ADD KEY `core_category_slug_384eca9c` (`slug`),
+  ADD KEY `core_category_user_id_d4f5e86c_fk_auth_user_id` (`user_id`);
+
+--
 -- Indexes for table `core_item`
 --
 ALTER TABLE `core_item`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `core_item_slug_07f502d0` (`slug`);
+  ADD KEY `core_item_slug_07f502d0` (`slug`),
+  ADD KEY `core_item_product_id_fa3fae1b_fk_core_product_id` (`product_id`);
 
 --
 -- Indexes for table `core_order`
@@ -566,11 +660,11 @@ ALTER TABLE `core_order`
   ADD KEY `core_order_user_id_b03bbffd_fk_auth_user_id` (`user_id`);
 
 --
--- Indexes for table `core_orderitems`
+-- Indexes for table `core_order_item`
 --
-ALTER TABLE `core_orderitems`
+ALTER TABLE `core_order_item`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `core_orderitems_item_id_473eafb2_fk_core_item_id` (`item_id`);
+  ADD KEY `core_order_item_item_id_05cfad56_fk_core_item_id` (`item_id`);
 
 --
 -- Indexes for table `core_order_items`
@@ -578,7 +672,16 @@ ALTER TABLE `core_orderitems`
 ALTER TABLE `core_order_items`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `core_order_items_order_id_orderitems_id_4c61603a_uniq` (`order_id`,`orderitems_id`),
-  ADD KEY `core_order_items_orderitems_id_0ac55b02_fk_core_orderitems_id` (`orderitems_id`);
+  ADD KEY `core_order_items_orderitems_id_0ac55b02_fk_core_order_item_id` (`orderitems_id`);
+
+--
+-- Indexes for table `core_product`
+--
+ALTER TABLE `core_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `core_product_category_id_b9d8ff9f_fk_core_category_id` (`category_id`),
+  ADD KEY `core_product_user_id_794bff72_fk_auth_user_id` (`user_id`),
+  ADD KEY `core_product_code_c6a8505c` (`code`);
 
 --
 -- Indexes for table `django_admin_log`
@@ -673,7 +776,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
@@ -690,19 +793,24 @@ ALTER TABLE `auth_user_groups`
 ALTER TABLE `auth_user_user_permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `core_category`
+--
+ALTER TABLE `core_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT for table `core_item`
 --
 ALTER TABLE `core_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `core_order`
 --
 ALTER TABLE `core_order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `core_orderitems`
+-- AUTO_INCREMENT for table `core_order_item`
 --
-ALTER TABLE `core_orderitems`
+ALTER TABLE `core_order_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `core_order_items`
@@ -710,20 +818,25 @@ ALTER TABLE `core_orderitems`
 ALTER TABLE `core_order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `core_product`
+--
+ALTER TABLE `core_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `django_site`
 --
@@ -793,23 +906,43 @@ ALTER TABLE `auth_user_user_permissions`
   ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
+-- Constraints for table `core_category`
+--
+ALTER TABLE `core_category`
+  ADD CONSTRAINT `core_category_parent_id_f82a0951_fk_core_category_id` FOREIGN KEY (`parent_id`) REFERENCES `core_category` (`id`),
+  ADD CONSTRAINT `core_category_user_id_d4f5e86c_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `core_item`
+--
+ALTER TABLE `core_item`
+  ADD CONSTRAINT `core_item_product_id_fa3fae1b_fk_core_product_id` FOREIGN KEY (`product_id`) REFERENCES `core_product` (`id`);
+
+--
 -- Constraints for table `core_order`
 --
 ALTER TABLE `core_order`
   ADD CONSTRAINT `core_order_user_id_b03bbffd_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
--- Constraints for table `core_orderitems`
+-- Constraints for table `core_order_item`
 --
-ALTER TABLE `core_orderitems`
-  ADD CONSTRAINT `core_orderitems_item_id_473eafb2_fk_core_item_id` FOREIGN KEY (`item_id`) REFERENCES `core_item` (`id`);
+ALTER TABLE `core_order_item`
+  ADD CONSTRAINT `core_order_item_item_id_05cfad56_fk_core_item_id` FOREIGN KEY (`item_id`) REFERENCES `core_item` (`id`);
 
 --
 -- Constraints for table `core_order_items`
 --
 ALTER TABLE `core_order_items`
   ADD CONSTRAINT `core_order_items_order_id_c5dde6c1_fk_core_order_id` FOREIGN KEY (`order_id`) REFERENCES `core_order` (`id`),
-  ADD CONSTRAINT `core_order_items_orderitems_id_0ac55b02_fk_core_orderitems_id` FOREIGN KEY (`orderitems_id`) REFERENCES `core_orderitems` (`id`);
+  ADD CONSTRAINT `core_order_items_orderitems_id_0ac55b02_fk_core_order_item_id` FOREIGN KEY (`orderitems_id`) REFERENCES `core_order_item` (`id`);
+
+--
+-- Constraints for table `core_product`
+--
+ALTER TABLE `core_product`
+  ADD CONSTRAINT `core_product_category_id_b9d8ff9f_fk_core_category_id` FOREIGN KEY (`category_id`) REFERENCES `core_category` (`id`),
+  ADD CONSTRAINT `core_product_user_id_794bff72_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `django_admin_log`
