@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 13, 2019 at 10:36 AM
--- Server version: 5.7.27-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-1+ubuntu18.04.1+deb.sury.org+1
+-- Generation Time: Nov 14, 2019 at 10:31 PM
+-- Server version: 5.7.27-0ubuntu0.19.04.1
+-- PHP Version: 7.2.24-0ubuntu0.19.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -183,7 +183,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$150000$CR9OPbMNQqqz$AN4rXIm7en+2wTiZVS7gL0ALPloFc+EGeHb0uScuXwc=', '2019-11-13 04:01:32.016316', 1, 'admin', '', '', 'admin@in.com', 1, 1, '2019-11-13 04:00:20.246341');
+(1, 'pbkdf2_sha256$150000$CR9OPbMNQqqz$AN4rXIm7en+2wTiZVS7gL0ALPloFc+EGeHb0uScuXwc=', '2019-11-13 15:40:32.108551', 1, 'admin', '', '', 'admin@in.com', 1, 1, '2019-11-13 04:00:20.246341');
 
 -- --------------------------------------------------------
 
@@ -221,23 +221,32 @@ CREATE TABLE `core_category` (
   `slug` varchar(50) NOT NULL,
   `created` datetime(6) NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `category_image` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `core_category`
 --
 
-INSERT INTO `core_category` (`id`, `name`, `slug`, `created`, `parent_id`, `user_id`) VALUES
-(1, 'Drum Handling', 'DH001', '2019-11-13 04:08:43.363984', NULL, 1),
-(2, 'Drum Carts', 'DC001', '2019-11-13 04:09:13.246913', 1, 1),
-(3, 'Carts', 'CA001', '2019-11-13 04:11:00.432137', NULL, 1),
-(4, 'Durm Covers', 'HC002', '2019-11-13 04:11:42.049793', 1, 1),
-(5, 'Bin', 'BIN01', '2019-11-13 04:12:49.246247', NULL, 1),
-(6, 'Mobile Carts', 'MBIN02', '2019-11-13 04:13:09.259019', 5, 1),
-(7, 'Bulk Tub Carts', 'BTC03', '2019-11-13 04:14:18.917875', 6, 1),
-(8, 'Dump Hoppers', 'DHP001', '2019-11-13 04:14:41.158789', NULL, 1),
-(9, 'Portable Hoppers', 'PH002', '2019-11-13 04:15:03.771935', 8, 1);
+INSERT INTO `core_category` (`id`, `name`, `slug`, `created`, `parent_id`, `user_id`, `category_image`) VALUES
+(1, 'Bin', 'bin', '2019-11-14 15:46:00.846704', NULL, 1, NULL),
+(2, 'Boxes', 'boxes', '2019-11-14 15:46:26.537999', 1, 1, 'category/Bins-Boxes.jpg'),
+(3, 'Racks', 'racks', '2019-11-14 15:47:03.373414', 2, 1, 'category/Bins-Racks.jpg'),
+(4, 'Casters', 'casters', '2019-11-14 15:47:35.312767', NULL, 1, NULL),
+(5, 'General Duty', 'general_duty', '2019-11-14 15:48:02.119463', 4, 1, 'category/Casters-General_Duty.jpg'),
+(6, 'Heavy Duty', 'heavy_duty', '2019-11-14 15:48:24.374889', 4, 1, 'category/Casters-Heavy_Duty.jpg'),
+(7, 'Light Duty', 'light_duty', '2019-11-14 15:48:44.279673', 4, 1, 'category/Casters-Light_Duty.jpg'),
+(8, 'Doors', 'doors', '2019-11-14 15:49:06.435458', NULL, 1, NULL),
+(9, 'Curtain', 'curtain', '2019-11-14 15:49:35.858486', 8, 1, 'category/Doors-Curtain.jpg'),
+(10, 'Wire', 'wire', '2019-11-14 15:49:47.487183', 8, 1, 'category/Doors-Wire.jpg'),
+(11, 'Guards', 'guards', '2019-11-14 15:50:19.117304', NULL, 1, NULL),
+(12, 'Corner', 'corner', '2019-11-14 15:50:39.813655', 11, 1, 'category/Guards-Corner.jpg'),
+(13, 'Machine', 'machine', '2019-11-14 15:50:59.805738', 11, 1, 'category/Guards-Machine.jpg'),
+(14, 'Hoppers', 'hoppers', '2019-11-14 15:51:13.792563', NULL, 1, NULL),
+(15, 'Bin Box', 'bin_box', '2019-11-14 15:51:38.104632', 14, 1, 'category/Hoppers-Bin_Box.jpg'),
+(16, 'Bulk', 'bulk', '2019-11-14 15:51:57.404676', 14, 1, 'category/CT-BFC30CFF.jpeg'),
+(17, 'Self Dumping', 'self_dumping', '2019-11-14 15:52:19.950532', 14, 1, 'category/JI-211362.jpeg');
 
 -- --------------------------------------------------------
 
@@ -263,14 +272,10 @@ CREATE TABLE `core_item` (
 --
 
 INSERT INTO `core_item` (`id`, `title`, `price`, `discount_price`, `label`, `slug`, `description`, `product_id`, `created`, `item_image`) VALUES
-(1, 'H13CU-L-GY', 203.18, 182.86, 'P', 'H13CU-L-GY', 'Larger capacity and molded body make these trucks lightweight and economical. Molded wheel wells with inboard, high-quality wheels allow multiple units to nest for freight savings. Protects walls and doorways from impact damage. Optional hinged lids available for all 6 sizes, see Related Itemstab. Available in Gray, Blue, White, Red, Green, Yellow, Black or Orange body colors. 3.0 cu. yd. models in Gray only. FOB Shipping Point.', 1, '2019-11-13 04:11:42.049793', 'H13CU-HD-GY_1k63aE3.jpg'),
-(2, 'H13CU-HD-GY', 467.77, 420.99, 'P', 'H13CU-HD-GY', 'Larger capacity and molded body make these trucks lightweight and economical. Molded wheel wells with inboard, high-quality wheels allow multiple units to nest for freight savings. Protects walls and doorways from impact damage. Optional hinged lids available for all 6 sizes, see Related Itemstab. Available in Gray, Blue, White, Red, Green, Yellow, Black or Orange body colors. 3.0 cu. yd. models in Gray only. FOB Shipping Point.', 1, '2019-11-13 04:11:42.049793', 'H13CU-HD-GY.jpg'),
-(3, 'H26750', 129.54, 116.59, 'S', 'H26750', 'Self-closing units feature fusible link in lid that melts at 165°F snapping lid closed to protect contents from external fire or snuff out fire that might start inside. Manual drum cover with gasket and vent for 55 gal. drums available. Attaches with screwdriver and wrench. Durable steel with tough powder coat paint finish. FOB Shipping Point.', 2, '2019-11-13 04:51:48.144090', 'H26753_ma5cjS9.jpg'),
-(4, 'H26753', 336.21, 302.59, 'P', 'H26753', 'Self-closing units feature fusible link in lid that melts at 165°F snapping lid closed to protect contents from external fire or snuff out fire that might start inside. Manual drum cover with gasket and vent for 55 gal. drums available. Attaches with screwdriver and wrench. Durable steel with tough powder coat paint finish. FOB Shipping Point.', 2, '2019-11-13 04:52:30.584857', 'H26753.jpg'),
-(5, 'H20120-1', 1600, 1440, 'P', 'H20120-1', 'Mix contents of a sealed drum. Sealed drum mixing eliminates worker exposure and reduces clean-up. Motor is also available in 3 phase versions.\r\nCompact portable industrial drum mixer and drain stand rolls a closed drum on its side to agitate the contents. Utilize important ingredients that would otherwise be in unmixed sediment. Built-in retractable tipping lever to assist loading. Also use as drain stand to dispense from drum. AC Motor is 1/2 HP 60 Hz. Capacity 500 lbs. liquid load and up to 400 lbs. dry load. FOB Shipping Point.', 3, '2019-11-13 04:54:12.873559', 'H20120-E1_YHjNOxw.jpg'),
-(6, 'H20120-E1', 1860, 1674, 'S', 'H20120-E1', 'Mix contents of a sealed drum. Sealed drum mixing eliminates worker exposure and reduces clean-up. Motor is also available in 3 phase versions.\r\nCompact portable industrial drum mixer and drain stand rolls a closed drum on its side to agitate the contents. Utilize important ingredients that would otherwise be in unmixed sediment. Built-in retractable tipping lever to assist loading. Also use as drain stand to dispense from drum. AC Motor is 1/2 HP 60 Hz. Capacity 500 lbs. liquid load and up to 400 lbs. dry load. FOB Shipping Point.\r\n\r\nBenefits of mixing in closed shipping drums....\r\nRemix settled ingredients.\r\nEliminate transfer, clean-up and special vessels.\r\nNo conatainer to purge between batches.\r\nNothing to insert into drum mix.', 3, '2019-11-13 04:54:45.609643', 'H20120-E1.jpg'),
-(7, 'NIS2577', 568.51, 511.66, 'P', 'NIS2577', 'NIS Self Dumping Hoppers are perfectly balanced to roll forward when loaded, dump completely and automatically return to upright, locked position ready for reloading. Continuous welding helps to prevent leaking or dripping of wet materials from the hoppers. Formed smooth edge around top and pouring lip for safety and strength. Extended sides prevent side-wise scattering of material. The stacking feature (standard on 1/2 through 1 cubic yard models) on some of our hoppers permits stacking of empty hoppers. Our self dumping steel hoppers also have a strong, easy-to-operate latching mechanism.\r\n\r\nStainless Steel and Quantity Discounts Available.', 3, '2019-11-13 04:56:36.693874', 'NIS10077_zlGXFOi.jpg'),
-(8, 'NIS10077', 849.29, 764.36, 'S', 'NIS10077', 'NIS Self Dumping Hoppers are perfectly balanced to roll forward when loaded, dump completely and automatically return to upright, locked position ready for reloading. Continuous welding helps to prevent leaking or dripping of wet materials from the hoppers. Formed smooth edge around top and pouring lip for safety and strength. Extended sides prevent side-wise scattering of material. The stacking feature (standard on 1/2 through 1 cubic yard models) on some of our hoppers permits stacking of empty hoppers. Our self dumping steel hoppers also have a strong, easy-to-operate latching mechanism.\r\n\r\nStainless Steel and Quantity Discounts Available.', 3, '2019-11-13 04:57:21.875187', 'NIS10077.jpg');
+(1, '24\", 30\" & 36\" Hulk Containers', 450, 400, 'P', 'HQUS964MOB-Y', 'Minimize parts handling time. Molded high-density polypropylene. Waterproof and resists rust and corrosion. Autoclavable up to 250ºF. Hulk Containers available in Yellow, Blue or Red. FOB Shipping Point.', 1, '2019-11-14 16:06:14.899996', 'QU-MOBILE-HULK.jpg'),
+(2, '24\", 30\" & 36\" Hulk Containers', 250, 240, 'P', 'HQUS957-Y', 'Minimize parts handling time. Molded high-density polypropylene. Waterproof and resists rust and corrosion. Autoclavable up to 250ºF. Hulk Containers available in Yellow, Blue or Red. FOB Shipping Point.', 1, '2019-11-14 16:08:14.499482', 'QU-QUS950_B5Euw3y.jpg'),
+(3, '4\" High Economy Shelf Bins', 350, 320, 'P', 'HQSB101-B', 'Durable polypropylene bins feature molded-in label holder. Built-in rear hanglock allows bins to tilt out for complete access. Wide hopper front allows easy access to contents of bin while in shelving. Reinforced edges add strength and durability. Designed for 12\", 18\", and 24\" deep shelving units, racks or standard shelving. Waterproof and impervious to most chemicals, unaffected by grease and oil. 4\" Shelf Bins are available in Blue, Yellow, Red, Green, Ivory, and Black. See Related Items tab below for 6\" High Economy Shelf Bins, 8\" High Economy Shelf Bins, Bin Cups for Economy Shelf Bins, Extended Label Holders, Shelf Bin Dividers for Economy Shelf bins & Clear-View Shelf Bins and Clear-View Shelf Bins.\r\n\r\nRecycled Economic Shelf Bins 4\" High Shelf Bins are available in Recycled Bins. Please select the product in the chart below. Black in color.\r\n\r\nLabels available for all shelf bins. Call for more information.', 2, '2019-11-14 16:12:02.411973', 'QU-QSB100_nnyyNWK.jpg'),
+(4, '4\" High Economy Shelf Bins', 250, 210, 'S', 'HQSB102-Y', 'Durable polypropylene bins feature molded-in label holder. Built-in rear hanglock allows bins to tilt out for complete access. Wide hopper front allows easy access to contents of bin while in shelving. Reinforced edges add strength and durability. Designed for 12\", 18\", and 24\" deep shelving units, racks or standard shelving. Waterproof and impervious to most chemicals, unaffected by grease and oil. 4\" Shelf Bins are available in Blue, Yellow, Red, Green, Ivory, and Black. See Related Items tab below for 6\" High Economy Shelf Bins, 8\" High Economy Shelf Bins, Bin Cups for Economy Shelf Bins, Extended Label Holders, Shelf Bin Dividers for Economy Shelf bins & Clear-View Shelf Bins and Clear-View Shelf Bins.\r\n\r\nRecycled Economic Shelf Bins 4\" High Shelf Bins are available in Recycled Bins. Please select the product in the chart below. Black in color.\r\n\r\nLabels available for all shelf bins. Call for more information.', 2, '2019-11-14 16:16:37.922919', 'QU-QSB100_LIW2A6R.jpg');
 
 -- --------------------------------------------------------
 
@@ -295,7 +300,9 @@ CREATE TABLE `core_order` (
 CREATE TABLE `core_order_item` (
   `id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL
+  `item_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `ordered` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -322,17 +329,40 @@ CREATE TABLE `core_product` (
   `code` varchar(50) NOT NULL,
   `created` datetime(6) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `product_image` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `core_product`
 --
 
-INSERT INTO `core_product` (`id`, `name`, `code`, `created`, `category_id`, `user_id`) VALUES
-(1, 'TUBS AND LIDS', 'TAL', '2019-11-13 04:30:22.708197', 7, 1),
-(2, 'DRUM COVERS', 'DC002', '2019-11-13 04:50:45.421936', 4, 1),
-(3, 'Portable Drum Rotator', 'PDR01', '2019-11-13 04:53:37.144634', 2, 1);
+INSERT INTO `core_product` (`id`, `name`, `code`, `created`, `category_id`, `user_id`, `product_image`) VALUES
+(1, '24\", 30\" & 36\" Hulk Containers', 'hulk_containers', '2019-11-14 15:58:39.103843', 2, 1, 'QU-QUS950.jpg'),
+(2, '4\" High Economy Shelf Bins', 'shelf_bins', '2019-11-14 16:10:29.755275', 2, 1, 'QU-QSB100.jpg'),
+(3, 'AkroBin® Wire Systems', 'wire_system', '2019-11-14 16:39:17.836877', 3, 1, 'AM-AWS143630320.jpg'),
+(4, 'Bin Pick Rack Systems - 18\"D', 'bin_pick', '2019-11-14 16:40:04.314501', 3, 1, 'AM-APRS18.jpg'),
+(5, 'Bin System Rail Racks & Bin Carts', 'bin_carts', '2019-11-14 16:40:28.702898', 3, 1, 'AM-30008-Mar14.jpg'),
+(6, 'AirRollers Load Moving System', 'Air_Rollers', '2019-11-14 16:42:57.265428', 5, 1, 'AE-AIRROLLERS-JUL19.jpg'),
+(7, 'Floor Locks', 'Floor_Locks', '2019-11-14 16:43:21.201569', 5, 1, 'PC-X558-FL.jpg'),
+(8, 'Extra Heavy-Duty Casters', 'Extra_Heavy', '2019-11-14 16:44:46.308983', 6, 1, 'FC-28-6-IRB.jpg'),
+(9, 'Heavier-Duty Caster', 'Heavier-Duty', '2019-11-14 16:45:08.982591', 6, 1, 'PC-X500-6US.jpg'),
+(10, 'Round Stool Caster Sets', 'Round_Stool', '2019-11-14 16:46:06.116523', 7, 1, 'BD-VR-1_casters-H15S.jpg'),
+(11, 'Light-Duty Casters', 'Light-Duty', '2019-11-14 16:46:35.927484', 7, 1, 'FC-EL23-4-PH.jpg'),
+(12, 'Accessories For Berner Air Curtains', 'Accessories_Berner', '2019-11-14 16:48:40.071100', 9, 1, 'BI-ACCESSORIES-July15.jpg'),
+(13, 'Berner Air Curtains', 'Berner_Air', '2019-11-14 16:49:18.276826', 9, 1, 'BI-DOOR-UNITS-July15.jpg'),
+(14, 'Barriers', 'barriers', '2019-11-14 16:50:13.278264', 10, 1, 'JI-332010.jpg'),
+(15, 'High Security Wire Partition System: Installation Components', 'High_Security', '2019-11-14 16:50:53.901894', 10, 1, 'JI-392101.jpg'),
+(16, 'Anchor Bolt For Corner Guards', 'Anchor_Bolt', '2019-11-14 16:52:02.684611', 12, 1, 'VM-AS-344.jpg'),
+(17, 'C-Shaped Corner Guard', 'C-Shaped', '2019-11-14 16:52:33.617257', 12, 1, 'PG-HEBCSSCG-JAN19.jpg'),
+(18, 'Floor Mounted Barrier Systems', 'Floor_Mounted', '2019-11-14 16:53:09.131941', 13, 1, 'HAI-CG-3-JAN18.jpeg'),
+(19, 'Machinery And Rack Guards', 'Machinery_Rack', '2019-11-14 16:53:40.895052', 13, 1, 'VM-HPRO-36-24-4.jpg'),
+(20, 'Giant Open Hopper Bin Storage System', 'Giant_Open', '2019-11-14 16:54:54.347988', 15, 1, 'QU-QSBU-230_group.jpg'),
+(21, 'Giant Open Hopper Stackable Bins', 'Giant_Open_Hopper', '2019-11-14 16:55:28.687616', 15, 1, 'QU-QGH600.jpg'),
+(22, 'Hinged Lids For Nestable Tilt Trucks & Self-Dumping Hoppers', 'Hinged_Lids', '2019-11-14 16:56:10.494141', 16, 1, 'BY-LIDS-APR14.jpg'),
+(23, 'Hopper Lids', 'Hopper_Lids', '2019-11-14 16:56:37.358193', 16, 1, 'JI-220044.jpg'),
+(24, 'Bumper Release Steel Hoppers', 'Bumper_Release', '2019-11-14 16:57:12.593934', 17, 1, 'VM-D-100-LD-JULY15.jpg'),
+(25, 'Large Volume Hoppers', 'Large_Hoppers', '2019-11-14 16:57:39.769360', 17, 1, 'JI-211371_July16.jpg');
 
 -- --------------------------------------------------------
 
@@ -388,7 +418,74 @@ INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`,
 (30, '2019-11-13 05:02:55.398436', '4', 'H26753', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
 (31, '2019-11-13 05:03:25.018357', '3', 'H26750', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
 (32, '2019-11-13 05:04:04.062767', '2', 'H13CU-HD-GY', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
-(33, '2019-11-13 05:04:23.484595', '1', 'H13CU-L-GY', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1);
+(33, '2019-11-13 05:04:23.484595', '1', 'H13CU-L-GY', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(34, '2019-11-13 16:05:28.980900', '3', 'Portable Drum Rotator', 2, '[{\"changed\": {\"fields\": [\"product_image\"]}}]', 17, 1),
+(35, '2019-11-13 16:05:40.109947', '2', 'DRUM COVERS', 2, '[{\"changed\": {\"fields\": [\"product_image\"]}}]', 17, 1),
+(36, '2019-11-13 16:09:22.492053', '4', 'NIS Self Dumping Hoppers', 1, '[{\"added\": {}}]', 17, 1),
+(37, '2019-11-13 16:10:22.910723', '5', 'Low Profile Dump Hoppers', 1, '[{\"added\": {}}]', 17, 1),
+(38, '2019-11-13 16:13:04.531415', '6', 'Vestil Box Dumper', 1, '[{\"added\": {}}]', 17, 1),
+(39, '2019-11-13 16:13:52.541932', '5', 'Low Profile Dump Hoppers', 2, '[{\"changed\": {\"fields\": [\"product_image\"]}}]', 17, 1),
+(40, '2019-11-13 16:13:59.795183', '5', 'Low Profile Dump Hoppers', 2, '[{\"changed\": {\"fields\": [\"product_image\"]}}]', 17, 1),
+(41, '2019-11-13 16:17:46.711256', '7', 'DELUXE ROTATING DRUM CARTS', 1, '[{\"added\": {}}]', 17, 1),
+(42, '2019-11-14 15:46:00.848105', '1', 'Bin', 1, '[{\"added\": {}}]', 13, 1),
+(43, '2019-11-14 15:46:26.538578', '2', 'Boxes', 1, '[{\"added\": {}}]', 13, 1),
+(44, '2019-11-14 15:47:03.373939', '3', 'Racks', 1, '[{\"added\": {}}]', 13, 1),
+(45, '2019-11-14 15:47:35.313701', '4', 'Casters', 1, '[{\"added\": {}}]', 13, 1),
+(46, '2019-11-14 15:48:02.119919', '5', 'General Duty', 1, '[{\"added\": {}}]', 13, 1),
+(47, '2019-11-14 15:48:24.375409', '6', 'Heavy Duty', 1, '[{\"added\": {}}]', 13, 1),
+(48, '2019-11-14 15:48:44.280840', '7', 'Light Duty', 1, '[{\"added\": {}}]', 13, 1),
+(49, '2019-11-14 15:49:06.436055', '8', 'Doors', 1, '[{\"added\": {}}]', 13, 1),
+(50, '2019-11-14 15:49:35.858883', '9', 'Curtain', 1, '[{\"added\": {}}]', 13, 1),
+(51, '2019-11-14 15:49:47.487611', '10', 'Wire', 1, '[{\"added\": {}}]', 13, 1),
+(52, '2019-11-14 15:50:19.118141', '11', 'Guards', 1, '[{\"added\": {}}]', 13, 1),
+(53, '2019-11-14 15:50:39.814612', '12', 'Corner', 1, '[{\"added\": {}}]', 13, 1),
+(54, '2019-11-14 15:50:59.806175', '13', 'Machine', 1, '[{\"added\": {}}]', 13, 1),
+(55, '2019-11-14 15:51:13.793092', '14', 'Hoppers', 1, '[{\"added\": {}}]', 13, 1),
+(56, '2019-11-14 15:51:38.105822', '15', 'Bin Box', 1, '[{\"added\": {}}]', 13, 1),
+(57, '2019-11-14 15:51:57.405220', '16', 'Bulk', 1, '[{\"added\": {}}]', 13, 1),
+(58, '2019-11-14 15:52:19.951332', '17', 'Self Dumping', 1, '[{\"added\": {}}]', 13, 1),
+(59, '2019-11-14 15:58:39.105243', '1', '24\", 30\" & 36\" Hulk Containers', 1, '[{\"added\": {}}]', 17, 1),
+(60, '2019-11-14 16:06:14.901181', '1', '24\", 30\" & 36\" Hulk Containers', 1, '[{\"added\": {}}]', 14, 1),
+(61, '2019-11-14 16:08:14.500920', '2', '24\", 30\" & 36\" Hulk Containers', 1, '[{\"added\": {}}]', 14, 1),
+(62, '2019-11-14 16:10:29.759356', '2', '4\" High Economy Shelf Bins', 1, '[{\"added\": {}}]', 17, 1),
+(63, '2019-11-14 16:12:02.413355', '3', '4\" High Economy Shelf Bins', 1, '[{\"added\": {}}]', 14, 1),
+(64, '2019-11-14 16:16:37.924819', '4', '4\" High Economy Shelf Bins', 1, '[{\"added\": {}}]', 14, 1),
+(65, '2019-11-14 16:16:46.700707', '4', '4\" High Economy Shelf Bins', 2, '[{\"changed\": {\"fields\": [\"item_image\"]}}]', 14, 1),
+(66, '2019-11-14 16:23:12.601396', '2', 'Boxes', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(67, '2019-11-14 16:23:41.962368', '3', 'Racks', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(68, '2019-11-14 16:24:01.515172', '5', 'General Duty', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(69, '2019-11-14 16:24:18.417220', '6', 'Heavy Duty', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(70, '2019-11-14 16:24:26.397092', '7', 'Light Duty', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(71, '2019-11-14 16:24:40.615041', '9', 'Curtain', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(72, '2019-11-14 16:24:47.260150', '10', 'Wire', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(73, '2019-11-14 16:24:59.045390', '12', 'Corner', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(74, '2019-11-14 16:25:05.798460', '13', 'Machine', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(75, '2019-11-14 16:25:29.113008', '15', 'Bin Box', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(76, '2019-11-14 16:25:37.045134', '16', 'Bulk', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(77, '2019-11-14 16:25:43.442054', '17', 'Self Dumping', 2, '[{\"changed\": {\"fields\": [\"category_image\"]}}]', 13, 1),
+(78, '2019-11-14 16:39:17.841618', '3', 'AkroBin® Wire Systems', 1, '[{\"added\": {}}]', 17, 1),
+(79, '2019-11-14 16:40:04.316377', '4', 'Bin Pick Rack Systems - 18\"D', 1, '[{\"added\": {}}]', 17, 1),
+(80, '2019-11-14 16:40:28.703974', '5', 'Bin System Rail Racks & Bin Carts', 1, '[{\"added\": {}}]', 17, 1),
+(81, '2019-11-14 16:42:57.267343', '6', 'AirRollers Load Moving System', 1, '[{\"added\": {}}]', 17, 1),
+(82, '2019-11-14 16:43:21.206423', '7', 'Floor Locks', 1, '[{\"added\": {}}]', 17, 1),
+(83, '2019-11-14 16:44:46.311203', '8', 'Extra Heavy-Duty Casters', 1, '[{\"added\": {}}]', 17, 1),
+(84, '2019-11-14 16:45:08.983677', '9', 'Heavier-Duty Caster', 1, '[{\"added\": {}}]', 17, 1),
+(85, '2019-11-14 16:46:06.117645', '10', 'Round Stool Caster Sets', 1, '[{\"added\": {}}]', 17, 1),
+(86, '2019-11-14 16:46:35.928588', '11', 'Light-Duty Casters', 1, '[{\"added\": {}}]', 17, 1),
+(87, '2019-11-14 16:48:40.072089', '12', 'Accessories For Berner Air Curtains', 1, '[{\"added\": {}}]', 17, 1),
+(88, '2019-11-14 16:49:18.279996', '13', 'Berner Air Curtains', 1, '[{\"added\": {}}]', 17, 1),
+(89, '2019-11-14 16:50:13.282687', '14', 'Barriers', 1, '[{\"added\": {}}]', 17, 1),
+(90, '2019-11-14 16:50:53.904196', '15', 'High Security Wire Partition System: Installation Components', 1, '[{\"added\": {}}]', 17, 1),
+(91, '2019-11-14 16:52:02.685616', '16', 'Anchor Bolt For Corner Guards', 1, '[{\"added\": {}}]', 17, 1),
+(92, '2019-11-14 16:52:33.618965', '17', 'C-Shaped Corner Guard', 1, '[{\"added\": {}}]', 17, 1),
+(93, '2019-11-14 16:53:09.133913', '18', 'Floor Mounted Barrier Systems', 1, '[{\"added\": {}}]', 17, 1),
+(94, '2019-11-14 16:53:40.896338', '19', 'Machinery And Rack Guards', 1, '[{\"added\": {}}]', 17, 1),
+(95, '2019-11-14 16:54:54.348885', '20', 'Giant Open Hopper Bin Storage System', 1, '[{\"added\": {}}]', 17, 1),
+(96, '2019-11-14 16:55:28.693013', '21', 'Giant Open Hopper Stackable Bins', 1, '[{\"added\": {}}]', 17, 1),
+(97, '2019-11-14 16:56:10.496398', '22', 'Hinged Lids For Nestable Tilt Trucks & Self-Dumping Hoppers', 1, '[{\"added\": {}}]', 17, 1),
+(98, '2019-11-14 16:56:37.361113', '23', 'Hopper Lids', 1, '[{\"added\": {}}]', 17, 1),
+(99, '2019-11-14 16:57:12.595757', '24', 'Bumper Release Steel Hoppers', 1, '[{\"added\": {}}]', 17, 1),
+(100, '2019-11-14 16:57:39.771401', '25', 'Large Volume Hoppers', 1, '[{\"added\": {}}]', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -471,7 +568,11 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (26, 'core', '0002_category_user', '2019-11-13 04:07:02.530432'),
 (27, 'core', '0003_auto_20191113_0429', '2019-11-13 04:29:09.537288'),
 (28, 'core', '0004_item_created', '2019-11-13 04:48:35.631288'),
-(29, 'core', '0005_item_item_image', '2019-11-13 04:58:58.969683');
+(29, 'core', '0005_item_item_image', '2019-11-13 04:58:58.969683'),
+(30, 'core', '0002_orderitems_user', '2019-11-13 15:46:09.511612'),
+(31, 'core', '0003_orderitems_ordered', '2019-11-13 15:46:53.262240'),
+(32, 'core', '0004_product_product_image', '2019-11-13 16:04:26.891240'),
+(33, 'core', '0005_category_category_image', '2019-11-14 16:13:11.486513');
 
 -- --------------------------------------------------------
 
@@ -490,7 +591,8 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('f5twvgp28uzas9uhi366u5oayuxmf00v', 'ZWE4OTZmMDI0YzNmNzI2YzUxMzgwNmRlNzBlNzRhZTI3ZDM1Y2I3OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNzM1YjUxMjBlZjk5OWRlZGNmMWMzMWU1ZmM5ODM4MmM3NTFjMGI5In0=', '2019-11-27 04:01:32.020060');
+('f5twvgp28uzas9uhi366u5oayuxmf00v', 'ZWE4OTZmMDI0YzNmNzI2YzUxMzgwNmRlNzBlNzRhZTI3ZDM1Y2I3OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNzM1YjUxMjBlZjk5OWRlZGNmMWMzMWU1ZmM5ODM4MmM3NTFjMGI5In0=', '2019-11-27 04:01:32.020060'),
+('zsrspi53aqd45sqmkokge7s1p5xjvi3y', 'ZWE4OTZmMDI0YzNmNzI2YzUxMzgwNmRlNzBlNzRhZTI3ZDM1Y2I3OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNzM1YjUxMjBlZjk5OWRlZGNmMWMzMWU1ZmM5ODM4MmM3NTFjMGI5In0=', '2019-11-27 15:40:32.111849');
 
 -- --------------------------------------------------------
 
@@ -664,7 +766,8 @@ ALTER TABLE `core_order`
 --
 ALTER TABLE `core_order_item`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `core_order_item_item_id_05cfad56_fk_core_item_id` (`item_id`);
+  ADD KEY `core_order_item_item_id_05cfad56_fk_core_item_id` (`item_id`),
+  ADD KEY `core_order_item_user_id_ce885d05_fk_auth_user_id` (`user_id`);
 
 --
 -- Indexes for table `core_order_items`
@@ -796,12 +899,12 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT for table `core_category`
 --
 ALTER TABLE `core_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `core_item`
 --
 ALTER TABLE `core_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `core_order`
 --
@@ -821,12 +924,12 @@ ALTER TABLE `core_order_items`
 -- AUTO_INCREMENT for table `core_product`
 --
 ALTER TABLE `core_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `django_content_type`
 --
@@ -836,7 +939,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `django_site`
 --
@@ -928,7 +1031,8 @@ ALTER TABLE `core_order`
 -- Constraints for table `core_order_item`
 --
 ALTER TABLE `core_order_item`
-  ADD CONSTRAINT `core_order_item_item_id_05cfad56_fk_core_item_id` FOREIGN KEY (`item_id`) REFERENCES `core_item` (`id`);
+  ADD CONSTRAINT `core_order_item_item_id_05cfad56_fk_core_item_id` FOREIGN KEY (`item_id`) REFERENCES `core_item` (`id`),
+  ADD CONSTRAINT `core_order_item_user_id_ce885d05_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `core_order_items`

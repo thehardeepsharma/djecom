@@ -16,6 +16,7 @@ class Category(models.Model):
     slug = models.SlugField()
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    category_image = models.ImageField(upload_to="category/", null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -32,6 +33,7 @@ class Product(models.Model):
     code = models.SlugField()
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    product_image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name

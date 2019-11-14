@@ -2,14 +2,17 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
-from .models import Category, Item, OrderItems, Order
+from .models import Category, Product, Item, OrderItems, Order
 
 
 class ProductListView(ListView):
-    model = Item
+    model = Product
     template_name = "list.html"
 
     def get_context_data(self, **kwargs):
+        # category_id = kwargs['category_id']
+        # if category_id:
+        #     products = Product.objects.get(category=category_id)
         context = super(ProductListView, self).get_context_data(**kwargs)
         categories = Category.objects.all()
         context['categories'] = categories
