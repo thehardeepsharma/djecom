@@ -24,9 +24,20 @@ class HomeView(ListView):
     template_name = "home.html"
 
 
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "product.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
+        return context
+
+
 class ItemDetailView(DetailView):
     model = Item
-    template_name = "product.html"
+    template_name = "sku.html"
 
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)

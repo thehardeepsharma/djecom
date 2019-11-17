@@ -6,4 +6,4 @@ catmgr/*.pyc
 core/__pycache__/
 core/migrations/
 static/logs/
-media/
+#media/

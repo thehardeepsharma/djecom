@@ -11,7 +11,7 @@
                 <div class="bradcaump__inner text-center">
                     <h2 class="bradcaump-title">Shop Grid</h2>
                     <nav class="bradcaump-content">
-                      <a class="breadcrumb_item" href="index.html">Home</a>
+                      <a class="breadcrumb_item" href="/">Home</a>
                       <span class="brd-separetor">/</span>
                       <span class="breadcrumb_item active">Shop Grid</span>
                     </nav>
@@ -90,8 +90,12 @@
                     <div class="col-lg-12">
                         <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
                             <div class="shop__list nav justify-content-center" role="tablist">
-                                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-grid" role="tab"><i class="fa fa-th"></i></a>
-                                <a class="nav-item nav-link" data-toggle="tab" href="#nav-list" role="tab"><i class="fa fa-list"></i></a>
+                                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-grid" role="tab">
+                                    <i class="fa fa-th"></i>
+                                </a>
+                                <a class="nav-item nav-link" data-toggle="tab" href="#nav-list" role="tab">
+                                    <i class="fa fa-list"></i>
+                                </a>
                             </div>
                             <p>Showing 1–12 of 40 results</p>
                             <div class="orderby__wrapper">
@@ -116,10 +120,10 @@
                             <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div class="product__thumb">
                                     <a class="first__img" href="{% url 'core:product' slug=item.slug %}">
-                                        <img src="/media/{{item.item_image}}" alt="{{item.title}}">
+                                        <img src="/media/{{item.product_image}}" alt="{{item.title}}">
                                     </a>
                                     <a class="second__img animation1" href="{% url 'core:product' slug=item.slug %}">
-                                        <img src="/media/{{item.item_image}}" alt="{{item.title}}">
+                                        <img src="/media/{{item.product_image}}" alt="{{item.title}}">
                                     </a>
                                     <div class="hot__box">
                                         <span class="hot-label">{{item.product}}</span>
@@ -176,10 +180,10 @@
                             <div class="list__view">
                                 <div class="thumb">
                                     <a class="first__img" href="{% url 'core:product' slug=item.slug %}">
-                                         <img src="/media/{{item.item_image}}" alt="{{item.title}}">
+                                         <img src="/media/{{item.product_image}}" alt="{{item.title}}">
                                     </a>
                                     <a class="second__img animation1" href="{% url 'core:product' slug=item.slug %}">
-                                         <img src="/media/{{item.item_image}}" alt="{{item.title}}">
+                                         <img src="/media/{{item.product_image}}" alt="{{item.title}}">
                                     </a>
                                 </div>
                                 <div class="content">

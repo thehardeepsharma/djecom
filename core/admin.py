@@ -9,9 +9,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'code', 'created')
-    list_filter = ['name', 'category', 'created']
-    search_fields = ['name']
+    list_display = ('name', 'category', 'slug', 'created')
+    list_filter = ['category', 'created']
+    search_fields = ['name', 'category']
 
 
 class ItemAdmin(admin.ModelAdmin):

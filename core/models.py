@@ -30,13 +30,28 @@ class Category(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    code = models.SlugField()
+    slug = models.SlugField()
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     product_image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def get_cat_list(self):
+        k = self.category  # for now ignore this instance method
+
+        breadcrumb = ["dummy"]
+        while k is not None:
+            breadcrumb.append(k.slug)
+            k = k.parent
+        for i in range(len(breadcrumb) - 1):
+            breadcrumb[i] = '/'.join(breadcrumb[-1:i - 1:-1])
+        return breadcrumb[-1:0:-1]
+
+    @property
+    def get_items(self):
+        return self.items.all()
 
     class Meta:
         db_table = "core_product"
@@ -46,7 +61,7 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField()
-    product = models.ForeignKey('Product', null=True, blank=True, on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', related_name="items", null=True, blank=True, on_delete=models.CASCADE)
     label = models.CharField(max_length=1, choices=LABEL_CHOICE)
     slug = models.SlugField()
     description = models.TextField(null=True, blank=True)
