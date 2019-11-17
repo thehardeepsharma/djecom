@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 14, 2019 at 10:31 PM
+-- Generation Time: Nov 17, 2019 at 07:24 PM
 -- Server version: 5.7.27-0ubuntu0.19.04.1
 -- PHP Version: 7.2.24-0ubuntu0.19.04.1
 
@@ -326,7 +326,7 @@ CREATE TABLE `core_order_items` (
 CREATE TABLE `core_product` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `code` varchar(50) NOT NULL,
+  `slug` varchar(50) NOT NULL,
   `created` datetime(6) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
@@ -337,7 +337,7 @@ CREATE TABLE `core_product` (
 -- Dumping data for table `core_product`
 --
 
-INSERT INTO `core_product` (`id`, `name`, `code`, `created`, `category_id`, `user_id`, `product_image`) VALUES
+INSERT INTO `core_product` (`id`, `name`, `slug`, `created`, `category_id`, `user_id`, `product_image`) VALUES
 (1, '24\", 30\" & 36\" Hulk Containers', 'hulk_containers', '2019-11-14 15:58:39.103843', 2, 1, 'QU-QUS950.jpg'),
 (2, '4\" High Economy Shelf Bins', 'shelf_bins', '2019-11-14 16:10:29.755275', 2, 1, 'QU-QSB100.jpg'),
 (3, 'AkroBin® Wire Systems', 'wire_system', '2019-11-14 16:39:17.836877', 3, 1, 'AM-AWS143630320.jpg'),
@@ -572,7 +572,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (30, 'core', '0002_orderitems_user', '2019-11-13 15:46:09.511612'),
 (31, 'core', '0003_orderitems_ordered', '2019-11-13 15:46:53.262240'),
 (32, 'core', '0004_product_product_image', '2019-11-13 16:04:26.891240'),
-(33, 'core', '0005_category_category_image', '2019-11-14 16:13:11.486513');
+(33, 'core', '0005_category_category_image', '2019-11-14 16:13:11.486513'),
+(34, 'core', '0006_auto_20191117_1308', '2019-11-17 13:08:18.969559');
 
 -- --------------------------------------------------------
 
@@ -784,7 +785,7 @@ ALTER TABLE `core_product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `core_product_category_id_b9d8ff9f_fk_core_category_id` (`category_id`),
   ADD KEY `core_product_user_id_794bff72_fk_auth_user_id` (`user_id`),
-  ADD KEY `core_product_code_c6a8505c` (`code`);
+  ADD KEY `core_product_code_c6a8505c` (`slug`);
 
 --
 -- Indexes for table `django_admin_log`
@@ -939,7 +940,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `django_site`
 --
